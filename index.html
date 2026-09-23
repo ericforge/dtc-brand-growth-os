@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DTC Brand Growth OS · 从 0 到 1 执行工作台</title>
+<meta name="description" content="面向第一次做 DTC 的人：14 个执行模块 + Trust & Proof OS + Audience Reach OS + Gate 0-7 项目闸门，每一步都有执行动作、验收数字和检查清单。">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<a class="skip" href="#main">跳到正文</a>
+
+<header class="topbar">
+  <button class="menu-btn" id="menuBtn" aria-label="打开导航">☰</button>
+  <div class="brand">
+    <span class="brand-mark">OS</span>
+    <span class="brand-text">DTC Brand Growth OS</span>
+  </div>
+  <div class="topbar-search">
+    <input id="searchInput" type="search" placeholder="搜索模块 / 步骤 / 指标…" autocomplete="off">
+  </div>
+  <div class="progress-pill" title="已完成检查项 / 全部检查项">
+    <div class="progress-bar"><span id="progressFill"></span></div>
+    <span class="progress-num"><b id="doneNum">0</b>/<span id="totalNum">86</span></span>
+  </div>
+</header>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebar">
+    <nav id="nav"></nav>
+    <div class="sidebar-foot">
+      <button class="ghost-btn" id="resetBtn">重置进度</button>
+      <div class="foot-note">进度保存在本机浏览器</div>
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <main id="main" class="main">
+    <div id="view"></div>
+    <footer class="site-foot">
+      <p>DTC Brand Growth OS · 开源可执行框架 · MIT License</p>
+      <p class="muted">本站点是执行工作台，不是文章。建议按 Gate 0 → Gate 7 顺序推进，每过一关再进下一关。</p>
+    </footer>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
