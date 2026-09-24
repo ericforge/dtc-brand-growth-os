@@ -48,6 +48,24 @@
       (ordered ? '<ol class="steps">' + body + '</ol>' : '<ul class="plain">' + body + '</ul>') + '</div>';
   }
 
+  function acceptanceBlock(title, items) {
+    if (!items || !items.length) return '';
+    const rows = items.map(item => {
+      const text = typeof item === 'string' ? item : (item.name || item.t || '');
+      const match = text.match(/^(.*?)[：:]?\s*(≥|≤|<|>|=)\s*(.+)$/);
+      const leading = text.match(/^(≥|≤|<|>|=)\s*(.+)$/);
+      const metric = match && match[1].trim() ? match[1].replace(/[：:]$/, '') : (leading ? leading[2] : text);
+      const reference = match && match[1].trim()
+        ? '示例：' + match[2] + ' ' + match[3] + '（仅参考）'
+        : (leading ? '示例：' + leading[1] + ' ' + leading[2] + '（仅参考）' : '按品类 / 阶段 / 渠道建立');
+      return [metric, reference, '___', '___', '___', '待判定'];
+    });
+    return '<div class="block accept"><div class="block-title">' + esc(title) +
+      '<span class="tag">需填写实际数据</span></div>' +
+      table(['指标', '参考起点', '我的目标', '实际值', '数据源', '判定'], rows, 'acceptance-table') +
+      '<p class="muted" style="margin:8px 0 0">参考值 ≠ 通用及格线。请结合品类、客单价、渠道、决策周期和真实数据设定目标。</p></div>';
+  }
+
   function table(headers, rows, cls) {
     return '<div class="table-wrap"><table' + (cls ? ' class="' + cls + '"' : '') + '><thead><tr>' +
       headers.map(h => '<th>' + esc(h) + '</th>').join('') + '</tr></thead><tbody>' +
@@ -123,9 +141,10 @@
   }
 
   const MOD_BY_NAME = {
-    'Market': 'm/market', 'Customer': 'm/voc', 'Product': 'm/product', 'Validation': 'm/validation',
-    'Positioning': 'm/brand', 'Trust & Proof': 'trust', 'Audience Reach': 'reach', 'Website': 'm/website',
-    'Conversion': 'm/website', 'CRM': 'm/crm', 'Retention': 'm/crm', 'Growth': 'm/growth'
+    'Strategy': 'm/strategy', 'Market': 'm/market', 'Customer': 'm/voc', 'Product': 'm/product',
+    'Validation': 'm/validation', 'Supply Chain': 'm/supply', 'Positioning': 'm/brand',
+    'Trust & Proof': 'trust', 'Audience Reach': 'reach', 'Website': 'm/website', 'Data': 'm/data',
+    'CRM': 'm/crm', 'Acquisition': 'm/acquisition', 'Growth': 'm/growth'
   };
 
   /* ---------- 视图：模块详情 ---------- */
@@ -151,7 +170,7 @@
     } else {
       h += blocks('做到什么算完成', 'DOD', 'dod', m.dod, false) +
         checkList(m.checks, m.id) +
-        blocks('验收标准（数字）', 'ACCEPTANCE', 'accept', m.acceptance, false) +
+        acceptanceBlock('验收标准记录', m.acceptance) +
         blocks('常见错误', 'PITFALLS', 'mistakes', m.mistakes, false) +
         templateBlock(m.template);
     }
@@ -166,7 +185,7 @@
   /* ---------- 视图：Trust & Proof OS ---------- */
   function viewTrust() {
     const t = S.trust;
-    let h = '<p class="h-eyebrow">核心系统 · 模块 07</p><h1>' + esc(t.title) + '</h1>' +
+    let h = '<p class="h-eyebrow">核心系统 · 模块 08</p><h1>' + esc(t.title) + '</h1>' +
       '<p class="lead">' + esc(t.lead) + '</p>' +
       blocks('用户真正在连续判断的 8 件事', 'QUESTIONS', 'goal', t.questions, false) +
       '<div class="block"><div class="block-title">信任公式</div>' +
@@ -183,7 +202,7 @@
       table(['Deliverable', '作用'], t.deliverables) + '</div>';
 
     h += '<h2>检查与验收</h2>' + checkList(t.checks, 'trust') +
-      blocks('验收标准（数字）', 'ACCEPTANCE', 'accept', t.acceptance, false) +
+      acceptanceBlock('验收标准记录', t.acceptance) +
       templateBlock(t.template);
     return h;
   }
@@ -191,7 +210,7 @@
   /* ---------- 视图：Audience Reach OS ---------- */
   function viewReach() {
     const r = S.reach;
-    let h = '<p class="h-eyebrow">核心系统 · 模块 08</p><h1>' + esc(r.title) + '</h1>' +
+    let h = '<p class="h-eyebrow">核心系统 · 模块 12</p><h1>' + esc(r.title) + '</h1>' +
       '<p class="lead">' + esc(r.lead) + '</p>' +
       '<div class="block goal"><div class="block-title">团队原则</div><p style="margin:0">' + esc(r.principle) + '</p></div>' +
       '<div class="block"><div class="block-title">重新定义「触达率」</div>' +
@@ -202,6 +221,10 @@
       '<p style="margin:8px 0 4px">应该变成：</p>' +
       '<div class="chain">' + esc(r.rightChain) + '</div>' +
       '<p style="margin:8px 0 0">关键词：<b>' + esc(r.mistakeText) + '</b></p></div>';
+
+    h += '<h2>一方数据与平台人群边界</h2><div class="block">' +
+      table(['类别', '定义', '可用方式'], r.audienceTypes) +
+      '<p class="muted" style="margin-top:8px">' + esc(r.consentNote) + '</p></div>';
 
     h += '<h2>提升精准触达率的 8 个杠杆</h2>' + blocks('', '', '', r.levels, true);
 
@@ -223,15 +246,16 @@
     h += '<h2>KPI 体系</h2><div class="block">' +
       table(['层级', 'KPI'], r.kpis) +
       '<p class="muted" style="margin-top:8px">' + esc(r.kpiNote) + '</p></div>' +
-      '<div class="block"><div class="block-title">触达效率公式</div>' +
-      '<div class="formula">' + esc(r.efficiencyFormula) + '</div></div>';
+      '<div class="block"><div class="block-title">Reach Quality Score</div>' +
+      '<div class="formula">' + esc(r.efficiencyFormula) + '</div>' +
+      '<p class="muted" style="margin-top:8px">这是团队诊断模型，用来找短板，不是行业 Benchmark，也不应作为统一及格线。</p></div>';
 
     h += '<h2>5 类 Reach Engine 与交付物</h2>' +
       '<div class="block">' + table(['Deliverable', '作用'], r.deliverables) + '</div>' +
       '<div class="block"><div class="block-title">在 OS 中的位置</div><div class="chain">' + esc(r.fullChain) + '</div></div>';
 
     h += '<h2>检查与验收</h2>' + checkList(r.checks, 'reach') +
-      blocks('验收标准（数字）', 'ACCEPTANCE', 'accept', r.acceptance, false) +
+      acceptanceBlock('验收标准记录', r.acceptance) +
       templateBlock(r.template);
     return h;
   }

@@ -5,18 +5,20 @@ const SITE = {};
 
 /* ============ 0. 全景地图 ============ */
 SITE.flow = [
-  { t: 'Market',        d: '市场与品类判断' },
-  { t: 'Customer',      d: '用户与 VOC' },
-  { t: 'Product',       d: '产品定义' },
-  { t: 'Validation',    d: '需求验证' },
-  { t: 'Positioning',   d: '定位与品牌' },
-  { t: 'Trust & Proof', d: '信任与证据' },
-  { t: 'Audience Reach',d: '精准触达' },
-  { t: 'Website',       d: '官网承接' },
-  { t: 'Conversion',    d: '转化与结账' },
-  { t: 'CRM',           d: '客户资产' },
-  { t: 'Retention',     d: '复购与留存' },
-  { t: 'Growth',        d: '规模化放大' }
+  { t: 'Strategy',          d: '战略与商业模式' },
+  { t: 'Market',            d: '市场与品类判断' },
+  { t: 'Customer',          d: '用户与 VOC' },
+  { t: 'Product',          d: '产品定义' },
+  { t: 'Validation',        d: '需求验证' },
+  { t: 'Supply Chain',      d: '供应链与合规' },
+  { t: 'Positioning',       d: '定位与品牌' },
+  { t: 'Trust & Proof',     d: '信任与证据' },
+  { t: 'Website',           d: '官网与转化' },
+  { t: 'Data',              d: '数据与隐私' },
+  { t: 'CRM',               d: '客户关系与体验' },
+  { t: 'Audience Reach',    d: '精准触达' },
+  { t: 'Acquisition',       d: '获客与投放' },
+  { t: 'Growth',            d: '规模化放大' }
 ];
 
 /* ============ 1. 模块 ============ */
@@ -27,19 +29,19 @@ SITE.modules = [
   why:'大多数 DTC 失败不是执行问题，而是商业模型不成立 —— 毛利撑不住 CAC，复购撑不住 LTV。一旦模型错了，后面每一步的努力都会被打折。',
   inputs:['候选品类 / 产品方向','可投入资金总额与时间预期','团队现有能力（供应链 / 内容 / 投放 / 客服）','现有供应链或工厂资源','可接受的回本周期'],
   steps:[
-    { name:'Step 1 · 算清单件经济模型（Unit Economics）', detail:'把一件商品从出厂到交付的全部成本列全：货成本 + 头程/运费 + 包装 + 平台佣金 + 支付手续费 + 预计退换货损耗 + 售后备件摊销。得出单件贡献毛利 CM = 售价 − 全部变动成本。自有站目标毛利率 ≥ 60%，含平台渠道 ≥ 45%。' },
-    { name:'Step 2 · 定义赚钱方式（LTV 来源）', detail:'明确复购来自哪里：耗材 / 配件 / 订阅 / 新品迭代 / 服务。给出假设：首单 CM、12 个月复购次数、客单价、LTV。没有 LTV 来源的品牌，只能靠不断买新客活着。' },
+    { name:'Step 1 · 算清单件经济模型（Unit Economics）', detail:'把一件商品从出厂到交付的全部成本列全：货成本 + 头程/运费 + 包装 + 平台佣金 + 支付手续费 + 预计退换货损耗 + 售后备件摊销。Gross Margin = Net Revenue − COGS；CM1 = Net Revenue − COGS − Payment Fee − Fulfillment − Freight Subsidy − Duties − Returns / Warranty variable cost；CM2 = CM1 − Acquisition Cost。' },
+    { name:'Step 2 · 定义赚钱方式（LTV 来源）', detail:'明确复购来自哪里：耗材 / 配件 / 订阅 / 新品迭代 / 服务。Contribution LTV = 首单 CM1 + 后续订单 CM1 − 后续可变服务/留存成本。Break-even CAC = 目标回本周期内累计 Contribution Margin；Break-even ROAS = 1 ÷ Pre-ad Contribution Margin %。' },
     { name:'Step 3 · 选定战场与差异化轴', detail:'选单品类切入还是多品类；确定你的差异化轴：性能 / 价格 / 人群 / 场景 / 设计 / 服务。每条差异化轴必须有可被验证的证据，否则只是文案。' }
   ],
   dod:['一页纸 Business Model Sheet 完成','毛利率达到目标区间','CAC 回本周期 ≤ 6 个月','差异化轴与竞品对照写清'],
   checks:[
-    '已算出单件贡献毛利 CM 与目标毛利率（自有站 ≥60% / 含平台 ≥45%）',
+    '已分别算出 Gross Margin、CM1、CM2，并记录每个成本口径',
     '已明确 LTV 来源（复购 / 配件 / 订阅 / 服务）并写出假设数值',
-    '已算出可承受 CAC 上限（首单回本或 LTV×0.3 取严者）',
+    '已算出 Break-even CAC 与 Break-even ROAS，并写明回本周期',
     '已写出差异化轴，并列出至少 3 个竞品做对照',
     '已确认资金可覆盖到首个验证周期（≥ 3 个月）且写明止损线'
   ],
-  acceptance:['毛利率 ≥ 60%（自有站口径）','CAC 回本周期 ≤ 180 天','至少 1 条差异化主张可被第三方证据支撑'],
+  acceptance:['CM1 / CM2 口径完整且可复核','Break-even CAC 已按回本周期倒推','至少 1 条差异化主张可被第三方证据支撑'],
   mistakes:['先想销量、后算毛利 —— 卖得越多亏得越多','把平台自然流量当成自己的能力','漏算退换货、售后备件与客服人力成本','一开始就做多品类，供应链和心智同时崩'],
   template:`BUSINESS MODEL SHEET（一页纸）
 --------------------------------------------
@@ -49,9 +51,12 @@ SITE.modules = [
   ├ 货成本：            ├ 头程/运费：
   ├ 包装：              ├ 平台佣金/支付费：
   └ 预计退换损耗：      └ 售后摊销：
-单件贡献毛利 CM =        毛利率 =
-LTV 假设：首单 CM __ + 12 个月复购 __ 次 × 客单 __ =
-可承受 CAC 上限 =        回本周期目标 =
+Gross Margin = Net Revenue - COGS =
+CM1 = Gross Margin - Payment - Fulfillment - Freight - Duties - Returns/Warranty =
+CM2 = CM1 - Acquisition Cost =
+Contribution LTV = 首单 CM1 __ + 后续订单 CM1 __ - 留存/服务成本 __ =
+Break-even CAC = 回本周期内累计 Contribution Margin =
+Break-even ROAS = 1 ÷ Pre-ad Contribution Margin % =
 差异化轴（打勾一个）：□性能 □价格 □人群 □场景 □设计 □服务
 差异化证据（可验证来源）：
 止损线：连续 __ 周 CAC > __ 或 毛利 < __ 即暂停`
@@ -293,10 +298,10 @@ SLA：下单→出库 __ h   出库→签收 __ 天   异常件流程：____
     'PDP 首屏使用 VOC 用户原话而非参数',
     '每个核心卖点旁都有可点击的证据来源',
     '价格 / 运费 / 税 / ETA / 退货政策在加购前可见',
-    '移动端 LCP ≤ 2.5s（实测）',
+    'Core Web Vitals 已按移动端 / 桌面端分别用 p75 Field Data 检查',
     '已用真实手机完成一次完整下单'
   ],
-  acceptance:['移动端 LCP ≤ 2.5s','PDP → 加购率 ≥ 8%','结账完成率 ≥ 45%','移动端跳出率 ≤ 55%'],
+  acceptance:['LCP / INP / CLS 已按 p75 Field Data 记录','PDP → 加购率已按品类与流量来源设定目标','结账完成率已按支付方式与地区设定目标','移动端跳出率已按页面类型和渠道设定目标'],
   mistakes:['把首页做成说明书，用户找不到入口','参数堆砌，没有场景和证据','运费和税到结账才出现，弃购飙升','只在电脑上测试，移动端一堆问题'],
   template:`PDP 结构检查表
 --------------------------------------------
@@ -438,9 +443,22 @@ Gate 7 判定：□Continue（放量） □Pivot □Stop`
 }
 ];
 
+/* V2.1 执行依赖：战略 → 市场 → 用户 → 产品 → 验证 → 供应 → 品牌 → 信任 → 上线 → 数据 → CRM → 触达 → 获客 → Scale */
+const MODULE_ORDER = ['strategy','market','voc','product','validation','supply','brand','trust','website','data','crm','reach','acquisition','growth'];
+const MODULE_GATES = {
+  strategy:'Gate 0', market:'Gate 1', voc:'Gate 2', product:'Gate 3', validation:'Gate 3',
+  supply:'Gate 4', brand:'Gate 4', trust:'Gate 4', website:'Gate 5', data:'Gate 5',
+  crm:'Gate 5', reach:'Gate 6', acquisition:'Gate 6', growth:'Gate 7'
+};
+SITE.modules.sort((a, b) => MODULE_ORDER.indexOf(a.id) - MODULE_ORDER.indexOf(b.id));
+SITE.modules.forEach((m, i) => {
+  m.num = String(i + 1).padStart(2, '0');
+  m.gate = MODULE_GATES[m.id] || m.gate;
+});
+
 /* ============ 2. Trust & Proof OS ============ */
 SITE.trust = {
-  id:'trust', num:'07', title:'Trust & Proof OS',
+  id:'trust', num:'08', title:'Trust & Proof OS',
   lead:'DTC 用户不是在判断「品牌好不好」，而是在连续判断 8 件事。任何一环掉链子，前面的流量全部浪费。',
   questions:['这家公司是真的吗？','产品真的有效吗？','别人真的买过吗？','评价是真的吗？','会按时发货吗？','坏了怎么办？','退款会不会很麻烦？','这家公司会不会消失？'],
   formula:'Trust = Transparency × Evidence × Social Proof × Consistency × Risk Reversal × Delivery Experience',
@@ -470,7 +488,7 @@ SITE.trust = {
     ['Claim–Evidence Matrix','每个卖点由什么证明（CLAIM / PROOF / SOURCE / TRUST）'],
     ['Risk Reversal System','Warranty / Return / Service / Guarantee 的完整设计']
   ],
-  chain:'Market ↓ Customer ↓ Product ↓ Validation ↓ Brand ↓ TRUST & PROOF ↓ Website ↓ Content ↓ Traffic ↓ Conversion ↓ CRM ↓ Retention',
+  chain:'Strategy ↓ Market ↓ Customer ↓ Product ↓ Validation ↓ Supply ↓ Brand ↓ TRUST & PROOF ↓ Website ↓ Data ↓ CRM ↓ Audience Reach ↓ Acquisition ↓ Growth',
   checks:[
     '已产出 Trust Matrix（7 层信任 × 决策阶段）',
     '已建立 Proof Library 并归档 ≥ 8 类证据',
@@ -507,19 +525,25 @@ RISK REVERSAL：
 
 /* ============ 3. Audience Reach OS ============ */
 SITE.reach = {
-  id:'reach', num:'08', title:'Audience Reach OS',
+  id:'reach', num:'12', title:'Audience Reach OS',
   lead:'核心目标不是「曝光最大化」，而是：让正确的人，在正确的时间，通过正确的渠道，以正确的内容，被足够次数触达。',
   principle:'不要追求让更多人看到品牌，而要追求让更多「应该看到品牌的人」，在购买决策周期里反复看到品牌。',
   rateFormula:'精准用户触达率 = 已触达目标用户数 ÷ 可触达目标用户池\n例：ICP 300 万 → 数字渠道可识别匹配 80 万 → 30 天有效触达 24 万\n精准用户触达率 = 24 / 80 = 30%',
-  efficiencyFormula:'精准触达效率 = Audience Accuracy × Channel Coverage × Creative Match × Frequency × Timing\n例：0.8 × 0.7 × 0.5 × 0.7 × 0.6 ≈ 11.8%\n→ 广告、内容、KOL、SEO 全在做，用户仍觉得"从没听过这个品牌"，本质是有效触达密度太低。',
+  efficiencyFormula:'Reach Quality Score = Audience Accuracy × Channel Coverage × Creative Match × Frequency × Timing\n每项按 1–5 分记录，用于诊断短板；它不是行业 Benchmark，也不是可直接判定商业成败的标准。\n示例：Audience 4/5 · Channel 3/5 · Creative 2/5 · Frequency 4/5 · Timing 3/5 → 当前瓶颈是 Creative Match。',
   wrongChain:'做内容 ↓ 买广告 ↓ 获得曝光 ↓ 希望有人购买',
   rightChain:'定义 ICP ↓ 建立 Audience Pool ↓ 找到用户出现的位置 ↓ 识别用户所处购买阶段 ↓ 匹配内容 ↓ 多渠道触达 ↓ 重复触达 ↓ 进入 First-party Data ↓ 持续经营',
   mistakeText:'从「流量思维」变成「人群经营思维」',
+  audienceTypes:[
+    ['First-party Data','品牌直接收集并能在自身系统中管理的数据：Customer、Email、SMS、Website events、Purchase history、Support history、Survey / Quiz','在获得适用 Consent 后用于分析、服务和再营销'],
+    ['Platform-engaged Audience','平台掌握、品牌可调用但不等于自有数据库的人群：Meta Engager、YouTube Viewer、TikTok Viewer、Instagram Engager','按平台规则用于再营销；不要当作品牌自有资产'],
+    ['Platform-modeled Audience','平台根据模型推断的人群：Lookalike、Broad、Interest、Algorithmic audience','用于投放探索，不代表真实身份或一方数据']
+  ],
+  consentNote:'一方数据必须和 Consent 一起设计：按市场确认 Cookie、广告测量、个性化和数据共享退出要求；没有适用同意或合法基础时，不把平台事件直接当作可自由使用的自有数据。',
   levels:[
     { t:'01 · 先把 ICP 做窄，而不是做人群无限扩张', d:'"Portable Power Station 用户"太宽。应细分成 ICP × Scenario × Problem × Intent，例如：RV Owner + Boondocking + Need AC Power + Searching "portable power station for RV"。而 Homeowner + Frequent Power Outages + Need Refrigerator Backup + Searching "backup power for refrigerator" 是另一个完全不同的 Audience。用户画像不要只停留在「男，35–55，美国，中产」—— 这种 Persona 对投放几乎没用。' },
     { t:'02 · 按「购买意图」分人（Intent Layer）', d:'把用户分成四层：L1 Problem Aware（知道问题，搜 How to keep refrigerator running during outage）、L2 Solution Aware（知道方案，搜 Best portable power station for refrigerator）、L3 Product Aware（开始比较，搜 EcoFlow vs Bluetti vs ALLWEI）、L4 Brand Aware（知道你，搜 ALLWEI PPS2400 review）。四层人群触达方式完全不同：Problem→Education、Solution→Buying Guide、Product→Comparison、Brand→Review / Offer。所以精准触达 ≠ 精准定向，还必须精准内容匹配精准 Intent。' },
     { t:'03 · 占领「用户出现的地方」', d:'不要先问"我们应该做 Facebook 还是 TikTok"，要先问"ICP 在购买决策过程中会在哪里出现"。画 Customer Touchpoint Map：Google ↓ Reddit ↓ YouTube ↓ Amazon ↓ Brand Website ↓ Review Site ↓ Instagram ↓ Email。真实路径可能是：Google 搜索 → Reddit 看讨论 → YouTube 看测评 → Amazon 看 Review → 官网比价 → Meta 再看到 Retargeting → Email 收到优惠 → 购买。真正的触达不是一个渠道完成转化，而是多触点共同完成转化。' },
-    { t:'04 · 建立 Audience Pool，而不是每次重新买用户', d:'每一次 Paid Traffic 都应该留下资产。建立 1st Party Audience：Website Visitor、Email、SMS、Customer、Cart Abandoner、Video Viewer、Content Reader、Product Viewer、Search User、Lead。再按热度分层：Hot（Checkout / Cart / PDP / Search / Email engaged）、Warm（Blog reader / Video viewer / Social engaged / Comparison page）、Cold（Lookalike / Interest / Broad / Contextual）。广告系统由此从 Buy Traffic 变成 Build Audience → Re-engage Audience → Convert Audience。' },
+    { t:'04 · 建立 Audience Pool，而不是每次重新买用户', d:'每一次 Paid Traffic 都应该留下可合规经营的资产。先区分 First-party Data、Platform-engaged Audience 和 Platform-modeled Audience，再按热度分层：Hot（Checkout / Cart / PDP / Search / Email engaged）、Warm（Blog reader / Video viewer / Social engaged / Comparison page）、Cold（Lookalike / Interest / Broad / Contextual）。广告系统由此从 Buy Traffic 变成 Build Audience → Re-engage Audience → Convert Audience。' },
     { t:'05 · 提高触达「密度」（Effective Frequency）', d:'单次看到通常不够。关键不是"用户有没有看到"，而是"一定时间内看到多少次、看到了什么"。30 天节奏示例：Day 1 TikTok UGC → Day 3 Google Search → Day 5 YouTube Review → Day 7 Meta Retargeting → Day 10 Comparison Ad → Day 12 Email → Day 15 UGC → Day 20 Offer。这是 Sequential Retargeting，而不是永远给用户看同一条广告。' },
     { t:'06 · Creative 决定算法能不能找到精准用户', d:'现在广告平台越来越偏 Broad Targeting + Algorithm，所以"精准"越来越不是手工选什么 Interest，而是什么 Creative 会吸引正确的人。广告开头写 "Power goes out often?" 或 "RV owners: stop running your generator all night." 本身就在过滤无关人群 —— 这就是 Creative Targeting。因此 Targeting = Audience Setting + Creative + Offer + Landing Page，而不是广告后台的一个选项。' },
     { t:'07 · 用「用户原话」提高匹配度', d:'如果 VOC 发现用户一直说 "I just need something that can keep my fridge running overnight."，广告就不要写 2048Wh LiFePO4 Power Station，而要写 Keep your refrigerator running through the night. 用户会快速判断"这个广告就是给我的"，同时改善 CTR → Landing Page Match → CVR → CAC。所以 VOC 不只是做品牌定位，它直接影响精准触达效率。' },
@@ -570,27 +594,27 @@ SITE.reach = {
     ['L4 Brand Aware','ALLWEI PPS2400 review','Review / Offer']
   ],
   freqEx:[['Day 1','TikTok UGC'],['Day 3','Google Search'],['Day 5','YouTube Review'],['Day 7','Meta Retargeting'],['Day 10','Comparison Ad'],['Day 12','Email'],['Day 15','UGC'],['Day 20','Offer']],
-  fullChain:'Market ↓ Customer ↓ Product ↓ Validation ↓ Positioning ↓ Trust & Proof ↓ Audience Reach ↓ Website ↓ Conversion ↓ CRM ↓ Retention ↓ Growth',
+  fullChain:'Strategy ↓ Market ↓ Customer ↓ Product ↓ Validation ↓ Supply ↓ Brand ↓ Trust & Proof ↓ Website ↓ Data ↓ CRM ↓ Audience Reach ↓ Acquisition ↓ Growth',
   checks:[
     '已算出精准用户触达率（已触达 ÷ 可触达池）',
     '已产出 Audience Map（ICP × 场景 × 痛点 × 意图）',
     '已建立 Intent Map 并覆盖 L1–L4 四层人群',
     '已画出 Customer Touchpoint Map（全触点路径）',
     '已产出 Channel × Content Matrix（渠道 × 人群 × 内容）',
-    '已建立 1st Party Audience 并按 Hot/Warm/Cold 分层',
-    '已设计 30 天 Sequential Retargeting 节奏（≥ 6 次触达）',
+    '已区分 First-party Data、Platform-engaged Audience 与 Platform-modeled Audience，并记录 Consent',
+    '已设计按决策周期测试的 Sequential Retargeting 节奏，不把 30 天 6 次当作固定门槛',
     '已建立 Reach Dashboard 并按周更新',
     '广告 Hook 已使用 VOC 用户原话（≥ 10 条在用）',
     '已启用 ≥ 3 类 Reach Engine（Intent / Algorithm / Authority / Community / Owned）',
     '已监控 Cost per Qualified Visit（不只 CPC）',
     '创意上新节奏 ≥ 5 条/周，用于 Creative Targeting',
-    '有效触达密度已计算：精准触达效率 ≥ 20%'
+    '已用 Reach Quality Score（每项 1–5 分）找出当前最低分瓶颈'
   ],
-  acceptance:['精准用户触达率 ≥ 30%','30 天内目标人群有效触达 ≥ 6 次','Cost per Qualified Visit 连续 4 周下降或持平'],
+  acceptance:['精准用户触达率已按可触达目标池定义并记录','Effective Frequency 已按客单价、决策周期和渠道完成测试','Cost per Qualified Visit 连续 4 周下降或持平'],
   template:`REACH DASHBOARD（周）
 --------------------------------------------
 ICP 池：______   可触达池：______   30天已触达：______
-精准用户触达率 = ___ / ___ = ___%   （目标 ≥30%）
+精准用户触达率 = ___ / ___ = ___%   （参考起点：按品类 / 渠道 / 阶段设目标）
 
 Reach Funnel：
 TAM __ → ICP __ → Addressable __ → Reachable __
@@ -600,52 +624,54 @@ TAM __ → ICP __ → Addressable __ → Reachable __
 Intent 分布：L1 __%  L2 __%  L3 __%  L4 __%
 Reach Engine 覆盖：□Intent □Algorithm □Authority □Community □Owned
 KPI：
- Precise Reach Rate ___%   Effective Frequency __ 次/30天
+ Precise Reach Rate ___%   Effective Frequency __ 次/决策周期
  Hook Rate ___%            Email Capture Rate ___%
  Cost per Qualified Visit $___   New Customer CAC $___
  Revenue per Reached User $___
-精准触达效率 = __×__×__×__×__ = ___%（目标 ≥20%）`
+Reach Quality Score：
+ Audience __/5  Channel __/5  Creative __/5  Frequency __/5  Timing __/5
+当前瓶颈：________  下一轮测试：________`
 };
 
 /* ============ 4. Gate 0–7 ============ */
 SITE.gates = [
-  { id:'gate-0', title:'要不要做', q:'这门生意在纸面上成立吗？',
-    conds:['单件贡献毛利 ≥ 售价的 60%（自有站口径）','可承受 CAC 上限已算出且 ≥ 品类获客成本参考值','资金可覆盖 ≥ 3 个月验证周期','团队具备供应链或内容/投放中的至少一项优势'],
+  { id:'gate-0', title:'Strategic Fit', q:'这门生意在纸面上成立吗？',
+    conds:['参考起点：CM1 / CM2 口径完整，毛利目标按品类与渠道建立（60% 仅为示例，不是统一及格线）','Break-even CAC 与 Break-even ROAS 已按回本周期倒推','现金计划覆盖首个验证周期，周期长度按库存、交期和结算周期填写','团队具备供应链或内容/投放中的至少一项优势'],
     go:'毛利与 CAC 均达标，进入 Market 研究',
     pivot:'毛利不足：重新选品 / 提价 / 换渠道结构',
     stop:'毛利为负且无改善路径' },
-  { id:'gate-1', title:'市场是否成立', q:'这个市场值得进、进得去吗？',
-    conds:['目标细分年增速 ≥ 10%','切入价格带内有 ≥ 3 个可参照竞品（说明有真实成交）','CR3 < 60%，或你有一条明确的差异化缝隙','差评聚类 Top5 中至少 2 个痛点可被解决'],
+  { id:'gate-1', title:'Market Opportunity', q:'这个市场值得进、进得去吗？',
+    conds:['市场规模、增速和季节性均有来源，并按目标市场口径记录','切入价格带有可验证成交证据；竞品数量不是固定及格线','CR3 / CR5 结合细分场景、渠道和差异化判断，不使用统一 60% 门槛','差评聚类中有可被产品和证据共同解决的高频痛点'],
     go:'进入 VOC 与产品定义',
     pivot:'集中度过高：换细分场景或换人群',
     stop:'市场萎缩或缝隙被头部快速封堵' },
-  { id:'gate-2', title:'用户与需求是否真实', q:'痛点是真的、用用户的话说的吗？',
-    conds:['真实语料 ≥ 500 条且来源可回溯','Top10 痛点每条出现 ≥ 20 次','Must-have 规格 100% 覆盖 VOC Top5 痛点','至少 2 个卖点有第三方可验证证据'],
+  { id:'gate-2', title:'Customer Problem', q:'痛点是真的、用用户的话说的吗？',
+    conds:['真实语料达到可分析规模，来源可回溯；500 条只是示例起点','痛点频次按样本量和置信度判断，不把 20 次当作通用门槛','Must-have 规格覆盖 VOC Top5 痛点，并保留证据链','核心卖点有第三方可验证证据'],
     go:'进入 Validation 小批量验证',
     pivot:'痛点分散：缩小人群重做 VOC',
     stop:'找不到高频、高强度的真实痛点' },
-  { id:'gate-3', title:'产品是否可交付', q:'做得出来、供得上、质量稳吗？',
-    conds:['小批量 ≥ 50 单真实交易','退货率 ≤ 品类均值','首批大货合格率 ≥ 98%','强制认证全部取得','主 + 备供应商已就位'],
+  { id:'gate-3', title:'Product & Demand Validation', q:'产品做得出来、需求也被真实交易验证了吗？',
+    conds:['已完成足以验证交付闭环的小批量真实交易，数量按品类和风险设定','退货率、良率和售后率与品类均值及供应商承诺对照','目标市场适用的强制法规、测试、标签和渠道要求已确认','主 + 备供应商已就位，并有履约和质量责任记录'],
     go:'进入品牌与信任建设',
     pivot:'质量不达标：换厂 / 改规格 / 降级上市定位',
     stop:'良率无法达标且成本不可承受' },
-  { id:'gate-4', title:'品牌与信任是否成立', q:'用户凭什么相信你？',
-    conds:['定位可被 ≥ 4/5 目标用户正确复述','Claim–Evidence Matrix 覆盖率 100%','Proof Library 证据类型 ≥ 8 类','Trust & Proof 检查通过项 ≥ 12/13'],
+  { id:'gate-4', title:'Product / Supply / Compliance Readiness', q:'产品、供应链和合规准备好了吗？',
+    conds:['定位复述测试已完成，目标值按样本量和品类设定','Claim–Evidence Matrix 的核心主张均有可查证来源','Proof Library 覆盖与产品风险相关的证据类型，不把 8 类当统一门槛','Trust & Proof 检查项按风险优先级完成'],
     go:'进入官网与转化建设',
     pivot:'证据不足：补实测 / 认证 / 第三方背书，或删掉无证据卖点',
     stop:'核心卖点无法被任何证据支撑' },
-  { id:'gate-5', title:'官网与转化是否成立', q:'流量来了接得住吗？',
-    conds:['移动端 LCP ≤ 2.5s','PDP → 加购率 ≥ 8%','结账完成率 ≥ 45%','精准用户触达率 ≥ 30%','平台与后端订单误差 ≤ 10%'],
+  { id:'gate-5', title:'Launch Readiness', q:'上线后流量来了接得住吗？',
+    conds:['Core Web Vitals：LCP ≤ 2.5s、INP ≤ 200ms、CLS ≤ 0.1；以移动端 / 桌面端 p75 Field Data 分开检查','PDP → 加购率和结账完成率按品类、设备、地区和流量来源建立目标','精准用户触达率按可触达目标池定义，不使用统一 30% 门槛','平台与后端订单误差已定义口径并持续对账'],
     go:'进入规模化获客',
     pivot:'转化不足：先修 PDP 与结账流程，不急着加预算',
     stop:'技术栈无法支撑，需重构后再来' },
-  { id:'gate-6', title:'获客是否可规模化', q:'花钱买增长，买得到吗？',
-    conds:['≥ 2 个渠道 CPA ≤ 目标 CAC','首单 ROAS ≥ 3','新客占比 ≥ 60%','CAC 回本周期 ≤ 180 天','连续 4 周 CAC 波动 ≤ 20%'],
+  { id:'gate-6', title:'Unit Economics / PMF Signal', q:'单位经济与市场信号支持继续获客吗？',
+    conds:['至少一个主要渠道达到按模型倒推的目标 CAC，且有止损线','首单 ROAS 与 Break-even ROAS 对照，不把 ROAS ≥ 3 当统一门槛','新客占比、回本周期和 CAC 波动按业务模型设定并持续记录','Reach Quality Score、素材、落地页和 Consent 数据可复盘'],
     go:'进入 Scale 与复购提升',
     pivot:'单渠道跑通但 CPA 偏高：先提客单与复购抬高 CAC 上限',
     stop:'CPA 长期 > 目标 CAC ×1.5 且无改善' },
-  { id:'gate-7', title:'是否可以 Scale', q:'放大是增长还是加速失血？',
-    conds:['LTV/CAC ≥ 3 且连续 8 周稳定','月复合增长 ≥ 15% 且贡献毛利不下降','新渠道 90 天内达到目标 CPA','核心流程 SOP 覆盖率 ≥ 80%','供应链交付可支撑 2× 销量'],
+  { id:'gate-7', title:'Scale Readiness', q:'放大是增长还是加速失血？',
+    conds:['LTV / CAC 按贡献口径计算，并结合现金周期和风险设定 Scale 目标','增长、贡献毛利和现金余额在目标周期内同时可接受','新渠道有明确测试周期、目标 CPA 和停止条件，不固定 90 天','核心流程、供应链和客服能力能支撑计划中的放量规模'],
     go:'放量：加预算、扩渠道、扩市场',
     pivot:'增长停滞：回到 Reach 与 Conversion 找断点',
     stop:'单位经济为负，停止放量先修模型' }
@@ -684,7 +710,7 @@ SITE.states = [
     gate:'gate-5',
     tip:'转化问题 80% 出在两处：运费/税到结账才出现、卖点没有证据。先查这两项。' },
   { key:'high-cac', label:'CAC 过高', desc:'能卖，但获客成本吃掉了利润',
-    steps:[{ m:'reach', why:'算精准触达效率：Audience Accuracy × Coverage × Creative × Frequency × Timing，找最低的那一项' },
+    steps:[{ m:'reach', why:'用 Reach Quality Score：Audience Accuracy × Channel Coverage × Creative Match × Frequency × Timing，找最低的那一项' },
            { m:'crm', why:'用复购和客单抬高 LTV，CAC 上限整体抬高' },
            { m:'acquisition', why:'检查 Creative Targeting：用用户原话做人群过滤，比加定向便宜' }],
     gate:'gate-6',
@@ -693,7 +719,10 @@ SITE.states = [
 
 /* ============ 6. 术语表 ============ */
 SITE.glossary = [
-  ['CM（贡献毛利）','售价减去全部变动成本，衡量每卖一件实际赚多少'],
+  ['Gross Margin','Net Revenue 减去 COGS；不要与贡献毛利混用'],
+  ['CM1 / CM2','CM1 扣除履约、支付、运费、税费、退货与质保等变动成本；CM2 再扣除获客成本'],
+  ['Contribution LTV','首单与后续订单的 CM1，减去后续可变服务 / 留存成本后的客户贡献'],
+  ['Break-even CAC / ROAS','按目标回本周期累计 Contribution Margin 倒推的 CAC；ROAS = 1 ÷ 广告前贡献毛利率'],
   ['CAC','获取一个新客户的全部成本'],
   ['LTV','一个客户在生命周期内贡献的总毛利'],
   ['ICP','Ideal Customer Profile，理想客户画像'],
@@ -702,10 +731,12 @@ SITE.glossary = [
   ['VOC','Voice of Customer，用户真实语言与反馈'],
   ['Intent Layer','按购买意图把人群分成 L1–L4 四层'],
   ['Effective Frequency','一定时间内目标用户有效看到品牌的次数'],
-  ['Precise Reach Rate','已触达目标用户 ÷ 可触达目标用户池'],
+  ['Precise Reach Rate','已触达目标用户 ÷ 可触达目标用户池；目标需按品类、渠道和阶段设定'],
+  ['Reach Quality Score','Audience Accuracy、Channel Coverage、Creative Match、Frequency、Timing 的 1–5 分诊断模型，不是行业 Benchmark'],
   ['Cost per Qualified Visit','获得一次「精准用户访问」的成本，比 CPC 更能反映质量'],
   ['Risk Reversal','把购买风险从用户转移到品牌：质保 / 退货 / 承诺'],
-  ['First-party Audience','品牌自有的一方数据人群，用于再营销与相似人群扩展'],
+  ['First-party Data','品牌直接收集并能在自身系统管理的数据；必须结合适用 Consent 和隐私要求使用'],
+  ['Platform-engaged / Modeled Audience','平台掌握或平台建模的人群，不等于品牌自有的一方数据库'],
   ['Sequential Retargeting','按时间序列给用户看不同内容的再营销，而不是重复同一条广告'],
   ['AQL','出货抽检的质量接受标准']
 ];
